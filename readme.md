@@ -10,4 +10,10 @@
     http://localhost:8080/
 
 > **HEADS UP!**
-> Open client in more than one windows/tabs to chat.
+> Open client in more than one window/tab to chat.
+
+
+##### Issues
+	1. Prompts more than once for username on joining chatroom
+
+
