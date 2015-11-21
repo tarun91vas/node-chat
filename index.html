@@ -8,6 +8,7 @@
 <!-- Chat Box -->
 <fieldset>
   <legend>Chat Box:</legend>
+  <p id="status"></p>
   <div id= "chat_list"></div>
  </fieldset>
 <br/>
@@ -22,8 +23,16 @@
 	//Connect to server
 	var socket = io.connect('http://localhost:8080');
 
+	socket.on('connect', function() {
+		var  nickname = prompt('Enter your username');
+		socket.emit('join', nickname);
+		$('#status').html('Connected to chatroom...');
+
+	});
+
 	// On recieving message from server append to chat list
 	socket.on('messages', function (data) {
+		console.log(socket);
 		$('#chat_list').append('<p>' +  data + '</p>');
 	});
 

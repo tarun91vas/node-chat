@@ -7,15 +7,22 @@ var express = require('express'),
 io.on('connection', function (client) {
 	console.log('Client connected..');
 
+	//set nickname for the client joined
+	client.on('join', function(name) {
+
+		client.nickname = name;
+		console.log(name + ' joined the chat');
+	});
+
 	//on recieving messages from client
 	client.on('messages', function (data) {
 		console.log(data);
 
 		//emit to other connected clients
-		client.broadcast.emit('messages', data);
+		client.broadcast.emit('messages', client.nickname + ': ' + data);
 
 		//emit to self
-		client.emit('messages', data);
+		client.emit('messages', client.nickname + ': ' + data);
 	});
 });
 
