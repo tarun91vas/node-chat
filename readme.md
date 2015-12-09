@@ -12,8 +12,11 @@
 > **HEADS UP!**
 > Open client in more than one window/tab to chat.
 
+##### TO DO
 
-##### Issues
-	1. Prompts more than once for username on joining chatroom
+    - Show the list of connected clients
+    - Store messages
+
+
 
 

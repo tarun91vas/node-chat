@@ -12,34 +12,42 @@
   <div id= "chat_list"></div>
  </fieldset>
 <br/>
-<form id="chat_form" action="#">
+<div id="chat_form" >
   <input type="textarea" id ="chat_msg" value="">
-  <input type="submit" value="Send">
-</form>
+  <button id="send" value="Send">Send</button>
+</div>
 
 
 
 <script>
-	//Connect to server
-	var socket = io.connect('http://localhost:8080');
 
-	socket.on('connect', function() {
-		var  nickname = prompt('Enter your username');
-		socket.emit('join', nickname);
-		$('#status').html('Connected to chatroom...');
+	$(document).ready(function(){
 
+		$("#send").click(function () {
+			var msg = $('#chat_msg').val();
+			// Clear current content
+			$('#chat_msg').val(" ");
+
+			// Send message
+			socket.emit('messages', msg);
+		});
+
+		//Connect to server
+		var socket = io.connect();
+
+		socket.on('connect', function() {
+			var  nickname = prompt('Enter your username');
+			socket.emit('join', nickname);
+			$('#status').html('Connected to chatroom...');
+
+		});
+
+		// On recieving message from server append to chat list
+		socket.on('messages', function (data) {
+			console.log(socket);
+			$('#chat_list').append('<p>' +  data + '</p>');
+		});
 	});
 
-	// On recieving message from server append to chat list
-	socket.on('messages', function (data) {
-		console.log(socket);
-		$('#chat_list').append('<p>' +  data + '</p>');
-	});
-
-	//On form submit, send message to server
-	$( "#chat_form" ).submit(function( event ) {
-	  var msg = $('#chat_msg').val();
-	  socket.emit('messages', msg);
-	});
 
 </script>

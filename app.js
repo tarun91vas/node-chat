@@ -1,4 +1,4 @@
-var express = require('express'),
+	var express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
 	io = require('socket.io')(server);
@@ -32,6 +32,6 @@ app.get('/', function (req, res) {
 });
 
 //Start the server
-server.listen(8080, function () {
+server.listen(8080,"0.0.0.0", function () {
 	console.log('server listening at 8080...');
 });
