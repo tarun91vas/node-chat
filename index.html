@@ -21,33 +21,33 @@
 
 <script>
 
-	$(document).ready(function(){
+$(document).ready(function(){
 
-		$("#send").click(function () {
-			var msg = $('#chat_msg').val();
-			// Clear current content
-			$('#chat_msg').val(" ");
+	$("#send").click(function () {
+		var msg = $('#chat_msg').val();
+		// Clear current content
+		$('#chat_msg').val(" ");
 
-			// Send message
-			socket.emit('messages', msg);
-		});
-
-		//Connect to server
-		var socket = io.connect();
-
-		socket.on('connect', function() {
-			var  nickname = prompt('Enter your username');
-			socket.emit('join', nickname);
-			$('#status').html('Connected to chatroom...');
-
-		});
-
-		// On recieving message from server append to chat list
-		socket.on('messages', function (data) {
-			console.log(socket);
-			$('#chat_list').append('<p>' +  data + '</p>');
-		});
+		// Send message
+		socket.emit('messages', msg);
 	});
+
+	//Connect to server
+	var socket = io.connect();
+
+	socket.on('connect', function() {
+		var  nickname = prompt('Enter your username');
+		socket.emit('join', nickname);
+		$('#status').html('Connected to chatroom...');
+
+	});
+
+	// On recieving message from server append to chat list
+	socket.on('messages', function (data) {
+		console.log(socket);
+		$('#chat_list').append('<p>' +  data + '</p>');
+	});
+});
 
 
 </script>
